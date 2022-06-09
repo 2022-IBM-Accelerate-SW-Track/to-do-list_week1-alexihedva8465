@@ -1,6 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './pages/Home.css';
+import './pages/About.css';
 import NavbarComp from './component/navigation/NavbarComp';
 
 function App() {
