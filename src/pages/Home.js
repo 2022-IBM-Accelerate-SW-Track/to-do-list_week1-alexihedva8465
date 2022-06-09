@@ -6,7 +6,10 @@ class Home extends Component {
 		super();
 		this.state = {
 			todos: [],
-			item: ''
+			item: {
+				id: 0,
+				todo: ''
+			}
 		};
 	}
 	/** 
@@ -16,22 +19,14 @@ class Home extends Component {
 				item and then updates the state with the new list.
 	**/ 
 	addTodo = (todo) => {
-		console.log(todo);
-		todo.id = Math.random();
-
 		// An array that contains the current array and the new todo item
 		let new_list = [...this.state.todos, todo];
-		console.log("new list");
-		console.log(new_list);
 
 		// Updates the local state with the new array.
 		this.setState({
 			todos: new_list,
 		});
-		console.log("in state: ");
-		console.log(this.state.todos);
-		console.log("ID");
-		console.log(todo.id);
+		
 	};
 
 	/* calls addTodo function on button click */
@@ -41,8 +36,13 @@ class Home extends Component {
 
 
 	render() {
+		const handleSubmit = event => {
+			//syntax source: https://bobbyhadz.com/blog/react-clear-input-after-submit
+			event.preventDefault();
+			event.target.reset();
+		}
 		const items = this.state.todos.map((item) =>
-			<li key={item.id}>{item}</li>
+			<li key={item.id}>{item.todo}</li>
 		);
 		return (
 			<div className="Home">
@@ -50,14 +50,21 @@ class Home extends Component {
 				<ul>
 					{items}
 				</ul>
+				<hr></hr> <br></br>
 				<div>
-					<input
-						type="text"
-						placeholder="Add New Item"
-						onChange={(event) => this.setState({ item: event.target.value })}
-					></input>
-					<button className="button"
-						onClick={this.handleClick.bind(this, this.state.item)}> ADD </button>
+					<form onSubmit={handleSubmit}>
+						<input
+							type="text"
+							placeholder="Add New Item"
+							onChange={(event) => this.setState({item: {
+								todo: event.target.value,
+								id: Math.random()
+							}})}
+						></input>
+						<button className="button"
+							onClick={this.handleClick.bind(this, this.state.item)}> 
+							ADD </button>
+					</form>
 				</div>
 			</div>
 		);

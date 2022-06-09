@@ -3,6 +3,10 @@
   height: 50vh;
 }
 
+h1 {
+  padding: 10px;
+}
+
 button{ 
   background-color: rgb(71,88,193);
   border-radius: 4px;
